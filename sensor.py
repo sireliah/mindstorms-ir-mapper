@@ -13,16 +13,10 @@ INTERVAL = 0.1
 def send_data_to_server(data: str, address: Tuple) -> None:
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(bytes(data.encode('utf-8')), address)
-    response_data, server = sock.recvfrom(4096)
-    print(response_data)
+    (_, _) = sock.recvfrom(4096)
 
 
-def run_angle(motor: MediumMotor, speed: SpeedPercent, angle: int) -> None:
-    while motor.is_running:
-        sleep(INTERVAL)
-
-
-def get_prox() -> str:
+def get_prox() -> None:
     speed = SpeedPercent(25)
     degrees = 90
     sensor = InfraredSensor()
@@ -32,8 +26,7 @@ def get_prox() -> str:
 
     while motor.is_running:
         sleep(INTERVAL)
-        rotated_degrees = motor.count_per_rot
-        metrics = f'{rotated_degrees} {sensor.proximity}'
+        metrics = f'{motor.count_per_rot} {sensor.proximity}'
         send_data_to_server(metrics, ADDRESS)
 
 
