@@ -13,7 +13,7 @@ class Renderer:
     def render(self, x: float, y: float) -> None:
         pos_x = WIDTH / 2 + y
         pos_y = HEIGHT / 2 - x
-        self.screen.set_at((int(pos_x), int(pos_y)), (0, 255, 0))
+        self.screen.set_at((int(pos_x), int(pos_y)), (100, 255, 0))
         pygame.display.update()
 
 
