@@ -20,37 +20,37 @@ class TestServer(TestCase):
         self.assertEqual(1, 1)
 
     def test_calculate_coords_acute(self):
-        (x, y) = calculate_coords(60, 20)
+        (x, y) = calculate_coords(60.0, 20.0)
 
         self.assertEqual((x, y), (10.000000000000002, 17.32050807568877))
 
     def test_calculate_coords_obtuse(self):
-        (x, y) = calculate_coords(130, 20)
+        (x, y) = calculate_coords(130.0, 20.0)
 
-        self.assertEqual((x, y), (15.32088886237956, -12.855752193730785))
+        self.assertEqual((x, y), (-12.855752193730787, 15.32088886237956))
 
     def test_calculate_coords_200(self):
-        (x, y) = calculate_coords(200, 20)
+        (x, y) = calculate_coords(200.0, 20.0)
 
-        self.assertEqual((x, y), (6.840402866513377, -18.793852415718167))
+        self.assertEqual((x, y), (-18.79385241571817, -6.840402866513373))
 
     def test_calculate_coords_320(self):
-        (x, y) = calculate_coords(320, 20)
+        (x, y) = calculate_coords(320.0, 20.0)
 
-        self.assertEqual((x, y), (-12.85575219373079, 15.320888862379558))
+        self.assertEqual((x, y), (15.320888862379556, -12.855752193730792))
 
     def test_calculate_coords_angle_zero(self):
-        (x, y) = calculate_coords(0, 20)
+        (x, y) = calculate_coords(0, 20.0)
 
         self.assertEqual((x, y), (20.0, 0))
 
     def test_calculate_coords_right_angle(self):
-        (x, y) = calculate_coords(90, 20)
+        (x, y) = calculate_coords(90.0, 20.0)
 
         # Close enough, float!
         self.assertEqual((x, y), (1.2246467991473533e-15, 20.0))
 
     def test_calculate_coords_180(self):
-        (x, y) = calculate_coords(180, 20)
+        (x, y) = calculate_coords(180.0, 20.0)
 
-        self.assertEqual((x, y), (1.2246467991473533e-15, -20.0))
+        self.assertEqual((x, y), (-20.0, 2.4492935982947065e-15))

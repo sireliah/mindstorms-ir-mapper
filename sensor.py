@@ -29,7 +29,7 @@ def get_prox() -> None:
     while motor.is_running:
         sleep(INTERVAL)
         angle = adjust_gears(motor.count_per_rot)
-        metrics = f'{angle} {sensor.proximity}'
+        metrics = f'{float(angle)} {float(sensor.proximity)}'
         send_data_to_server(metrics, ADDRESS)
 
 
