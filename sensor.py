@@ -6,6 +6,8 @@ import socket
 from ev3dev2.sensor.lego import InfraredSensor
 from ev3dev2.motor import MediumMotor, SpeedPercent, OUTPUT_D
 
+from robot_utils import adjust_gears
+
 ADDRESS = ('192.168.0.11', 5000)
 INTERVAL = 0.1
 
@@ -26,7 +28,8 @@ def get_prox() -> None:
 
     while motor.is_running:
         sleep(INTERVAL)
-        metrics = f'{motor.count_per_rot} {sensor.proximity}'
+        angle = adjust_gears(motor.count_per_rot)
+        metrics = f'{angle} {sensor.proximity}'
         send_data_to_server(metrics, ADDRESS)
 
 
