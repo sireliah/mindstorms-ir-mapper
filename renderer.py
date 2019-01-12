@@ -16,6 +16,11 @@ def translate(x: float, y: float, turned: float) -> Tuple[float, float]:
 
 
 class Renderer:
+    """
+    Renderer will draw points on the screen, but not clear the screen after tick.
+    This will make points persist and save us some trouble with storing 
+    all coordinates in some data structure.
+    """
     def __init__(self) -> None:
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))

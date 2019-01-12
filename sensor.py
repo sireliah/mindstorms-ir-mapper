@@ -12,8 +12,6 @@ from ev3dev2.sensor.lego import InfraredSensor
 
 from robot_utils import prox_to_cm, robot_degrees_to_rotations
 
-# ADDRESS = ('10.42.0.1', 5000)
-ADDRESS = ('192.168.0.11', 5000)
 INTERVAL = 0.1
 TRACK_RADIUS = 1.8   # cm
 SPEED = 15
@@ -21,6 +19,7 @@ SPEED = 15
 
 class Robot:
     def __init__(self):
+        self.server_address = (str(sys.argv[1]), 5000)
         self.sensor = InfraredSensor()
         self.motor = MediumMotor(OUTPUT_D)
         self.drive_motor = MoveTank(OUTPUT_B, OUTPUT_C)
@@ -29,6 +28,7 @@ class Robot:
         self.turned = 0
 
     def rotate_sensor(self, degrees: int, speed: int) -> None:
+        # Motor input degrees are multuplied by 3 because of the gears setup.
         self.motor.on_for_degrees(
             SpeedPercent(speed),
             degrees * 3,
@@ -53,11 +53,15 @@ class Robot:
         sock.sendto(bytes(data.encode('utf-8')), address)
 
     def write_data(self) -> None:
+        """
+        Collect and send the metrics to the server.
+        Please note that angle is divided by 3, because of the gears setup (1/3).
+        """
         angle = self.motor.position / 3
         proximity = prox_to_cm(float(self.sensor.proximity))
         metrics = '{} {} {} {}'.format(angle, proximity, float(self.moved), float(self.turned))
         print(metrics)
-        self.send_data_to_server(metrics, ADDRESS)
+        self.send_data_to_server(metrics, self.server_address)
 
     def rotate_and_listen(self, degrees: int, command: str) -> None:
         print(self.motor.position)
@@ -84,13 +88,13 @@ class Robot:
 
     def move(self) -> None:
         try:
-            degrees = int(sys.argv[1])
+            degrees = int(sys.argv[2])
         except IndexError:
             degrees = 90
 
         try:
-            command = str(sys.argv[2])
-        except IndexEror:
+            command = str(sys.argv[3])
+        except IndexError:
             command = None
         self.rotate_and_listen(degrees, command)
 

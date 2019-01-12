@@ -1,0 +1,2 @@
+pygame==1.9.4
+python-ev3dev2==2.0.0b2
