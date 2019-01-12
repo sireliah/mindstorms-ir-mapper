@@ -1,31 +1,21 @@
 from unittest import TestCase
 
-from robot_utils import adjust_gears
+from robot_utils import prox_to_cm, robot_degrees_to_rotations
 
 
 class TestSensor(TestCase):
 
-    def test_adjust_gears(self):
-        result = adjust_gears(90)
+    def test_prox_to_cm(self):
+        result = prox_to_cm(100)
 
-        self.assertEqual(result, 330.0)
+        self.assertEqual(result, 70)
 
-    def test_adjust_gears2(self):
-        result = adjust_gears(180)
+    def test_robot_degrees_to_rotations(self):
+        result = robot_degrees_to_rotations(180)
 
-        self.assertEqual(result, 300.0)
+        self.assertEqual(result, 2.39999994)
 
-    def test_adjust_gears3(self):
-        result = adjust_gears(270)
+    def test_robot_degrees_to_rotations_neg(self):
+        result = robot_degrees_to_rotations(-90)
 
-        self.assertEqual(result, 270.0)
-
-    def test_adjust_gears4(self):
-        result = adjust_gears(360)
-
-        self.assertEqual(result, 240.0)
-
-    def test_adjust_gears_reset(self):
-        result = adjust_gears(1080)
-
-        self.assertEqual(result, 0)
+        self.assertEqual(result, -1.19999997)

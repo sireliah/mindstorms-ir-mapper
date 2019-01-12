@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from server import calculate_coords, parse_data
+from renderer import translate
 
 
 class TestServer(TestCase):
@@ -54,3 +55,13 @@ class TestServer(TestCase):
         (x, y) = calculate_coords(180.0, 20.0)
 
         self.assertEqual((x, y), (-20.0, 2.4492935982947065e-15))
+
+    def test_translate_left(self):
+        (x, y) = translate(1.0, 0, -90.0)
+
+        self.assertEqual((x, y), (6.123233995736766e-17, 1.0))
+
+    def test_translate_right(self):
+        (x, y) = translate(1.0, 0, 90.0)
+
+        self.assertEqual((x, y), (6.123233995736766e-17, -1.0))
