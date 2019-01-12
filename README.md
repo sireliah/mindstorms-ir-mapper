@@ -21,4 +21,4 @@ It's a LEGO Mindstorms proof-of-concept project for a robot that uses a moving i
 
 ## See the robot in action!
 
-![Robot video](https://youtu.be/i6X3qB3_FkE)
+[Robot video on Youtube](https://youtu.be/i6X3qB3_FkE)
